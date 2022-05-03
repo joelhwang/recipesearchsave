@@ -6,9 +6,9 @@ Recipe Search & Save is an application built to help users find recipes with an 
 Users can also register an account to save recipes.
 
 The website was built with the following technologies:
-..*React
-..*JavaScript
-..*Node.js
-..*Express.js
-..*MongoDB
-..*Passport.js
+* React
+* JavaScript
+* Node.js
+* Express.js
+* MongoDB
+* Passport.js
