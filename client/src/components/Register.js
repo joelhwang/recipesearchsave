@@ -54,10 +54,6 @@ const Register = () => {
                 </FlashMessage>  
             )} 
             <form onSubmit={handleSubmit} className = 'user-form' >
-                <p>{username}</p>
-                <p>{password}</p>
-                <p>{verifyPassword}</p>
-                <p>{message}</p>
                 <h1 className = 'form-header'>Register</h1>
                 <section className = 'input'>
                     <label>Username </label>

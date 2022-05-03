@@ -41,7 +41,6 @@ const Login = () => {
                 </FlashMessage>  
             )}
             <form onSubmit={handleSubmit} className = 'user-form' >
-                <p>{message}</p>
                 <h1 className = 'form-header'>Login</h1>
                 <section className = 'input'>
                     <label>Username </label>
