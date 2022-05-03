@@ -11,6 +11,7 @@ require('dotenv').config();
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
+const path = require("path")
 
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/recipe-tracker';
 mongoose.connect(dbUrl);
@@ -37,11 +38,7 @@ const sessionConfig = {
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }
-const path = require("path")
-app.use(express.static(path.join(__dirname, "client", "build")))
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-});
+
 
 app.use(session(sessionConfig));
 app.use(passport.initialize());
@@ -63,6 +60,11 @@ app.use((err, req, res, next)=>{
     res.status(statusCode).render('error', {err})
 })
 
+app.use(express.static(path.join(__dirname, "client", "build")))
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
