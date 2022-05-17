@@ -15,11 +15,13 @@ const MyRecipes = () => {
         fetchSavedRecipes();
     }, []);
 
+    //once saved recipes are fetched, the app handles pagination
     useEffect(() => {
         handlePagination(1);
     }, [savedRecipes]);
 
-
+    //get requuest for saved recipes
+    //also sets the number of recipes for pagination purposes
     const fetchSavedRecipes = async()=>{
         try{
             const result = await Axios({
@@ -36,6 +38,7 @@ const MyRecipes = () => {
 
     }
 
+    //delete post request
     const handleDelete = async(e, id) =>{
         e.preventDefault();
         try{
@@ -52,6 +55,8 @@ const MyRecipes = () => {
         }
     }
 
+    //expands box to show details the show details button is clicked
+    //if box is already expanded, the details are hidden instead
     const handleClick = (id)=>{
         if(!expanded){
             setExpanded(true);
@@ -70,14 +75,20 @@ const MyRecipes = () => {
     }
 
     const handlePagination = (page) =>{
+        //sets start and end index depending on current page
+        //limit of entries per page is set to 10
         const startIndex = (page - 1) * 10;
         const endIndex = page * 10;
+        //the paginated list is sliced from the list of all saved recipes
         const paginatedList = savedRecipes.slice(startIndex, endIndex);
+        //paginatedList is set which re-renders the page to show the list
         setPaginatedRecipes(paginatedList);
         window.scrollTo(0, 0);
     }
 
     const renderPagination = () =>{
+        //renders the page navigation bar on the bottom of the page
+        //sets current page on click
         let pageList = [];
         for(let i=1;i<=numPages;i++){
             pageList.push(<span

@@ -11,6 +11,8 @@ const Login = () => {
     const setIsLogged = useContext(SetIsLoggedContext);
     let navigate = useNavigate();
 
+    //sends post request to backend for logging in user
+    //flashes error message if username or password is incorrect
     const handleSubmit = async(e)=>{
         e.preventDefault();
         setMessage(null);

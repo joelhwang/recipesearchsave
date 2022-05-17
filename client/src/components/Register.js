@@ -12,7 +12,7 @@ const Register = () => {
     const setIsLogged = useContext(SetIsLoggedContext);
     let navigate = useNavigate();
 
-    
+    //post request for register page
     const handleSubmit = async(e)=>{
         e.preventDefault();
         setMessage(null);

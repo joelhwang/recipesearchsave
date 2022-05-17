@@ -14,6 +14,8 @@ const RecipeFetch = ({url}) =>{
 
     useEffect(() =>{
         setIsPrev(false);
+        //only fetches data from api if component is already mounted
+        //prevents fetch on initial render when there is no user input
         if(isComponentMounted){
             fetchApi();
         }
@@ -26,6 +28,7 @@ const RecipeFetch = ({url}) =>{
         }
     }, [paginatedUrl]);
 
+    //fetches data from edamam recipe api
     const fetchApi = async ()=>{
         setIsLoading(true);
         const result = await fetch(url);
@@ -34,6 +37,9 @@ const RecipeFetch = ({url}) =>{
         setIsLoading(false);
     }
 
+    //pagination for recipes is a simple implmentation where there is only next and prev options
+    //current page is tracked with a counter function
+    //A navigation bar that displays all the page numbers is not implemented due to limitations to edamam api fetches.
     const counter = (n) =>{
         const currentPage = pageNumber;
         if(n===1){

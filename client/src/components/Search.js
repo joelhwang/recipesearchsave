@@ -16,6 +16,9 @@ const Search = () => {
     const setPrevUrl = useContext(SetUrlContext);
     const isPrev = useContext(IsPrevContext);
   
+    //isPrev will be true if a user clicke the 'back to search results' button on a recipe's details page
+    //prevUrl is a global variable that is set when a search is initiated to store the fetch url of the last search.
+    //Thus, if a user clicks the 'back to search results' button on a recipe's details page, the app will know the fetch url.
     useEffect(() =>{
         if(isPrev && prevUrl != null){
             setUrl(prevUrl);
@@ -25,6 +28,8 @@ const Search = () => {
     const handleSubmit = (e) =>{
         e.preventDefault();
         
+        //tempUrl concatenates filters and sets the url at the end to prevent re-render everytime a single filter is set
+        //this avoids making too many edamam api requests (I am on the free tier)
         let tempUrl = `https://api.edamam.com/api/recipes/v2?type=public&q=${ingredient}&app_id=${REACT_APP_EDAMAM_ID}&app_key=${REACT_APP_EDAMAM_KEY}`
 
         if(dietType !== ''){

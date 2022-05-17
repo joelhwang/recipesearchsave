@@ -3,6 +3,8 @@ import { useContext } from 'react';
 import { IsLoggedContext, SetIsLoggedContext } from '../App';
 
 const Navbar = () => {
+    //global variables for checking whether a user is logged
+    //depending on isLogged, certain options will be displayed in the navbar
     const isLogged = useContext(IsLoggedContext);
     const setIsLogged = useContext(SetIsLoggedContext);
     const navigate = useNavigate();
@@ -15,7 +17,7 @@ const Navbar = () => {
         setIsLogged(false);
         navigate('/');
     };
-    
+
     return (
         <nav className='navbar'>
             <h1>Recipe Search & Save</h1>

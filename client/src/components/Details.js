@@ -19,6 +19,8 @@ const Details = () => {
         window.scrollTo(0, 0);
     }, []);
 
+    //fetches saved recipe names
+    //for disabling the 'save to recipes' button when the current user already has it saved
     const fetchSavedRecipeNames = async()=>{
         try{
             const result = await Axios({ 
@@ -32,6 +34,7 @@ const Details = () => {
         }
     }
 
+    //saves currently viewed recipe to list
     const handleSaveRecipe = async(recipe) =>{
         try{
             await Axios({
@@ -47,15 +50,18 @@ const Details = () => {
         }
     }
 
+    //opens link to external site that has the full recipe instructions
     const handleLink = (url) =>{
         window.open(url);
     }
     
+    //Navigates back to previous search results
+    //IsPrev is a global variable that is set to true so that the app knows that there are 
+    //previous search results when redirecting to search page 
     const navigatePrev = ()=>{
         setIsPrev(true);
         navigate('/search');
     }
-
 
     return ( 
         <div className='recipe-details'>
@@ -66,6 +72,9 @@ const Details = () => {
                 </section>
                 <section className = 'header'>
                     <h1 className='detail-title'>{recipe.label}</h1>
+                    {/* if user does not already have the currently viewed recipe in their list,
+                    show button with initial style and not disabled.
+                    Upon clicking add, style changes to the 'already-added' and button is disabled */}
                     {isLogged && (!savedRecipeNames.includes(recipe.label)) &&
                         <button 
                             className = {addStyle} 

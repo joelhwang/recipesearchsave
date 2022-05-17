@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom'
 
 const RecipeList = ({data}) => {
     let navigate = useNavigate();
+
+    //passes recipe data from search results to recipe details page
     const navigateDetails = (recipeData)=>{
         navigate('/details', {state:{recipe:recipeData}});
     }

@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 const path = require("path")
 
+//process.env.DB_URL is stored in Heroku's built in env variables
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/recipe-tracker';
 mongoose.connect(dbUrl);
 const db = mongoose.connection;
@@ -22,6 +23,7 @@ db.once("open", () => {
 });
 
 const secret = process.env.SECRET || 'notagoodsecret';
+//config for session stored in mongo 
 const sessionConfig = {
     store: MongoStore.create({
         mongoUrl: dbUrl,
@@ -33,35 +35,40 @@ const sessionConfig = {
     saveUnitialized: true,
     cookie:{
         httpOnly: true,
-        // secure: true,
+        //session expires in a week from login
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }
 
-
 app.use(session(sessionConfig));
+//using passport for authentication
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+//keep track of currently logged in user
 app.use((req, res, next)=>{
     res.locals.currentUser = req.user;
     next();
 })
 
+//routes for backend api
 app.use('/', userRoutes);
 
+//error middleware
 app.use((err, req, res, next)=>{
     const { statusCode = 500 } = err;
     if(!err.message) err.message = 'Something went wrong'
     res.status(statusCode).render('error', {err})
 })
 
+//for sending static file request to client
 app.use(express.static(path.join(__dirname, "client", "build")))
 
+//reaches this catchall routehandler if the api routes above are not able to handle the request
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });

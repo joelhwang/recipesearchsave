@@ -8,6 +8,8 @@ import Search from './components/Search';
 import MyRecipes from './components/MyRecipes';
 import Details from './components/Details';
 import React from 'react';
+
+//global variables
 export const UrlContext = React.createContext(null);
 export const SetUrlContext = React.createContext(null);
 export const IsPrevContext = React.createContext(null);
@@ -16,10 +18,13 @@ export const IsLoggedContext = React.createContext(null);
 export const SetIsLoggedContext = React.createContext(null);
 
 function App() {
+  //global variable setters
   const [prevUrl, setPrevUrl] = useState(null);
   const [isPrev, setIsPrev] = useState(false);
   const [isLogged, setIsLogged] = useState(null);
 
+  //on opening app, check whether there is a logged user
+  //navbar options differ depending on if a user a logged
   useEffect(() => {
     fetchIsLogged();
   }, []);
