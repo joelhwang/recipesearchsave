@@ -22,16 +22,16 @@ const Navbar = () => {
         <nav className='navbar'>
             <h1>Recipe Search & Save</h1>
             <div className='links'>
-                <Link to ="/search">Search</Link>
+                <Link to ="/search" className='search-link'>Search</Link>
                 {!isLogged && (
                     <span>
-                        <Link to="/login">Login</Link>
-                        <Link to="/register">Register</Link>
+                        <Link to="/login" className='login-link'>Login</Link>
+                        <Link to="/register" className='register-link'>Register</Link>
                     </span>
                 )}
                 {isLogged &&(   
                     <span>
-                        <Link to ="/myrecipes">My Recipes</Link>
+                        <Link to ="/myrecipes" className='my-recipes-link'>My Recipes</Link>
                         <span className = 'logout-btn' onClick={handleLogout}>Logout</span>
                     </span>
                 )}
